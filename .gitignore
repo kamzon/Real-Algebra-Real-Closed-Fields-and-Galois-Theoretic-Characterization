@@ -5,6 +5,7 @@
 *.snm
 *.toc
 *.pdf
+!presentation.pdf
 *.fdb_latexmk
 *.fls
 *.vrb

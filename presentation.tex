@@ -17,11 +17,11 @@
 \setbeamertemplate{footline}{%
   \leavevmode%
   \hbox{%
-    \begin{beamercolorbox}[wd=.72\paperwidth,ht=2.5ex,dp=1ex,leftskip=.7em]{author in head/foot}%
+    \begin{beamercolorbox}[wd=.78\paperwidth,ht=2.5ex,dp=1ex,leftskip=.7em]{author in head/foot}%
       \usebeamerfont{author in head/foot}\scriptsize Noureddine Kamzon (University of Passau)
     \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.28\paperwidth,ht=2.5ex,dp=1ex,rightskip=.7em]{date in head/foot}%
-      \usebeamerfont{date in head/foot}\scriptsize \insertshortdate
+    \begin{beamercolorbox}[wd=.22\paperwidth,ht=2.5ex,dp=1ex,rightskip=.7em]{date in head/foot}%
+      \usebeamerfont{date in head/foot}\scriptsize \insertframenumber{} / \inserttotalframenumber
     \end{beamercolorbox}%
   }%
   \vskip0pt%
@@ -38,20 +38,119 @@
   \end{center}
 \end{frame}
 
+
+
 \begin{frame}
-\frametitle{Section 1.1}
+    \frametitle{Algebraic Background of Ordered Fields (Artin--Schreier)}
+    \framesubtitle{\textit{Orderings and Preorderings of Fields}}
+    
+    \small
+    \begin{definition}[Ordering of a field]
+        Let $K$ be a field. An \textbf{ordering} of $K$ is a subset $P \subseteq K$ satisfying:
+        \begin{enumerate}[(O1)]
+            \setlength{\itemsep}{0.15em}
+            \item $P + P \subseteq P$ and $P \cdot P \subseteq P$
+            \item $P \cap (-P) = \{0\}$
+            \item $P \cup (-P) = K$
+        \end{enumerate}
+        The pair $(K,P)$ is an \textbf{ordered field}.
+    \end{definition}
+
+    \vspace{-0.3em}
+    {\tiny \textit{Notation:} $P + P := \{a+b : a,b\in P\}$ and $P\cdot P := \{ab : a,b\in P\}$.}
+    \vspace{0.25em}
+
+    \begin{block}{\footnotesize Remark on (O2)}
+        If $P$ is closed under addition and multiplication and satisfies (O3), then the condition (O2) is equivalent to
+        \[
+        (O2') -1 \notin P.
+        \]
+    \end{block}
+    
+    \vspace{0.2em}
+    \begin{flushright}
+        \textcolor{gray}{\tiny \textit{Ref: M. Knebusch \& C. Scheiderer, Real Algebra. A First Course (2022)}}
+    \end{flushright}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Algebraic Background of Ordered Fields}
+    \framesubtitle{Orderings and Preorderings of Fields}
+    
+    \begin{definition}[Preordering of a Field]
+        A \textbf{preordering} of a field $K$ is a subset $T \subseteq K$ satisfying:
+        \begin{enumerate}[(P1)]
+            \setlength{\itemsep}{0.3em}
+            \item $T + T \subseteq T \quad \text{and} \quad T \cdot T \subseteq T$
+            \item $T \cap (-T) = \{0\}$
+            \item $\forall a \in K,\ a^2 \in T$
+        \end{enumerate}
+    \end{definition}
+
+    \vspace{0.4em}
+    \begin{block}{Examples}
+        \begin{itemize}
+            \setlength{\itemsep}{0.3em}
+            \item The set of non-negative reals $\mathbb{R}_{\geq 0} $ is the unique ordering of $\mathbb{R}$.
+            \item Similarly, $\mathbb{Q}_{\geq 0}$ is the unique ordering of $\mathbb{Q}$.
+            \item $\mathbb{C}$ \emph{cannot} be ordered because $-1$ can be expressed as a sum of squares $(-1 = i^2)$.
+        \end{itemize}
+    \end{block}
+
+    \vspace*{\fill}
+    \hfill \textcolor{gray}{\tiny \textit{Ref: M. Knebusch \& C. Scheiderer, Real Algebra. A First Course (2022)}}
 \end{frame}
 
 \begin{frame}
-\frametitle{Orderings of a field}
+    \frametitle{Algebraic Background of Ordered Fields}
+    \framesubtitle{Properties of Preorderings \& Sums of Squares}
+    
+    \begin{alertblock}{Remarks on Preorderings}
+        \begin{itemize}
+            \setlength{\itemsep}{0.3em}
+            \item Similarly, assuming (P1) and (P3), condition (P2) is equivalent to \textbf{(P2') $-1 \notin T$}.
+            \item Every ordering is a preordering. Indeed, (P3) is a weaker version of (O3), where  
+            $\forall a \in K$, 
+            $ (a \in P \lor -a \in P) $ implies $a^2 \in P$ by (O1).
+            \item Arbitrary intersections of preorderings are again preorderings.
+        \end{itemize}
+    \end{alertblock}
+
+    \begin{block}{The Smallest Preordering}
+        We denote the set of sums of squares in $K$ by $\sum K^2$:
+        \vspace{-0.8em}
+        \[ \sum K^2 := \{a_1^2 + \dots + a_n^2 \mid n \in \mathbb{N}, a_1, \dots, a_n \in K\} \]
+        \vspace{-0.1em}
+        $\sum K^2$ is contained in \emph{every} preordering of $K$.And It is a preordering if and only if $ -1 \notin \sum K^2$.
+    \end{block}
+
+    
+    \vspace*{\fill}
+    \hfill \textcolor{gray}{\tiny \textit{Ref: M. Knebusch \& C. Scheiderer, Real Algebra. A First Course (2022)}}
 \end{frame}
 
 \begin{frame}
-\frametitle{Preorderings}
-\end{frame}
+    \frametitle{Algebraic Background of Ordered Fields}
+    \framesubtitle{Real Fields}
 
-\begin{frame}
-\frametitle{Positive cone}
+    \begin{definition}[Definition 1.1.7: Real Field]
+        The field $K$ is called \textbf{real} if $-1 \notin \sum K^2$, i.e., when $-1$ cannot be written as a sum of squares in $K$.
+    \end{definition}
+
+    \vspace{0.4em}
+    
+    \begin{alertblock}{Immediate Consequences}
+        \begin{itemize}
+            \setlength{\itemsep}{0.3em}
+            \item A field $K$ has a preordering \textbf{if and only if} it is real.
+            \item In this case, $\sum K^2$ is the \emph{smallest} preordering on $K$.
+            \item All real fields must have characteristic $0$.
+        \end{itemize}
+    \end{alertblock}
+
+    \vspace*{\fill}
+    \hfill \textcolor{gray}{\tiny \textit{Ref: M. Knebusch \& C. Scheiderer, Real Algebra. A First Course (2022)}}
 \end{frame}
 
 \begin{frame}
