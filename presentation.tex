@@ -14,6 +14,8 @@
 \institute{University of Passau}
 \date{\today}
 
+\newtheorem{proposition}{Proposition}
+
 \setbeamertemplate{footline}{%
   \leavevmode%
   \hbox{%
@@ -114,16 +116,17 @@
             $\forall a \in K$, 
             $ (a \in P \lor -a \in P) $ implies $a^2 \in P$ by (O1).
             \item Arbitrary intersections of preorderings are again preorderings.
+            \item Let $\mathcal{T} = (T_\alpha : \alpha \in I)$ be a nonempty family of preorderings of a field $K$.
+            \vspace{0.4em}
+            \begin{itemize}
+                \setlength{\itemsep}{0.4em}
+                \item The intersection $\bigcap_{\alpha \in I} T_\alpha$ is also a preordering.
+                
+                \item If $\mathcal{T}$ is \textbf{upward directed} (i.e., for all $\alpha, \beta \in I$ there exists $\gamma \in I$ such that $T_\alpha \cup T_\beta \subseteq T_\gamma$), then the union $\bigcup_{\alpha \in I} T_\alpha$ is also a preordering.
+                \item In particular, if K has a preordering, then it it will have a smallest one.
+            \end{itemize}
         \end{itemize}
     \end{alertblock}
-
-    \begin{block}{The Smallest Preordering}
-        We denote the set of sums of squares in $K$ by $\sum K^2$:
-        \vspace{-0.8em}
-        \[ \sum K^2 := \{a_1^2 + \dots + a_n^2 \mid n \in \mathbb{N}, a_1, \dots, a_n \in K\} \]
-        \vspace{-0.1em}
-        $\sum K^2$ is contained in \emph{every} preordering of $K$.And It is a preordering if and only if $ -1 \notin \sum K^2$.
-    \end{block}
 
     
     \vspace*{\fill}
@@ -132,9 +135,25 @@
 
 \begin{frame}
     \frametitle{Algebraic Background of Ordered Fields}
+    \framesubtitle{The Smallest Preordering}
+
+        \begin{block}{The Smallest Preordering}
+        We denote the set of sums of squares in $K$ by $\sum K^2$:
+        \vspace{-0.8em}
+        \[ \sum K^2 := \{a_1^2 + \dots + a_n^2 \mid n \in \mathbb{N}, a_1, \dots, a_n \in K\} \]
+        \vspace{-0.1em}
+        $\sum K^2$ is contained in \emph{every} preordering of $K$.And It is a preordering if and only if $ -1 \notin \sum K^2$.
+    \end{block}
+
+    \vspace*{\fill}
+    \hfill \textcolor{gray}{\tiny \textit{Ref: M. Knebusch \& C. Scheiderer, Real Algebra. A First Course (2022)}}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Algebraic Background of Ordered Fields}
     \framesubtitle{Real Fields}
 
-    \begin{definition}[Definition 1.1.7: Real Field]
+    \begin{definition}[Real Field]
         The field $K$ is called \textbf{real} if $-1 \notin \sum K^2$, i.e., when $-1$ cannot be written as a sum of squares in $K$.
     \end{definition}
 
@@ -154,7 +173,447 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Examples}
+    \frametitle{Algebraic Background of Ordered Fields}
+    \framesubtitle{Lemma 1.1.8 - Enlarging a Preordering}
+
+    \begin{lemma}[Lemma 1.1.8]
+        Let $T$ be a preordering of $K$ and let $a \in K$ with $a \notin T$. Then
+        \[ T - aT = \{b - ac \mid b, c \in T\} \]
+        is again a preordering of $K$.
+    \end{lemma}
+
+    \begin{proof}[Proof Sketch]
+        $T - aT$ clearly satisfies (P1) and (P3). We only need to show $-1 \notin T - aT$:
+        \begin{itemize}
+            \item Assume that $-1 \in T - aT$, so $-1 = b - ac$.
+            \item This implies $c \neq 0$ (otherwise $-1 = b \in T$, impossible).
+            \item Rearranging gives $ac = 1 + b$, so $a = c^{-2} \cdot c(1 + b)$.
+            \item Since $c^{-2}, c, 1, b \in T$, we get $a \in T$, contradicting $a \notin T$. \qedhere
+        \end{itemize}
+    \end{proof}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Algebraic Background of Ordered Fields}
+    \framesubtitle{Lemma 1.1.9 - Existence of Orderings}
+
+    \begin{lemma}[Lemma 1.1.9]
+        For every preordering $T$ of $K$ there exists an ordering $P$ of $K$ such that $T \subseteq P$.
+    \end{lemma}
+
+    \begin{proof}
+        \begin{itemize}
+            \setlength{\itemsep}{0.4em}
+            \item Let $M := \{T' \subseteq K \mid T' \text{ is a preordering and } T \subseteq T'\}$.
+            \item $M$ is ordered by inclusion, $M \neq \emptyset$, and Zorn's Lemma applies.
+            \item Thus, there exists a \textbf{maximal preordering} $P$ of $K$ with $T \subseteq P$.
+            \item \textbf{Why is $P$ an ordering?} If $a \in K$ and $a \notin P$, then by Lemma 1.1.8, $P - aP$ is a preordering containing $P$.
+            \item By the maximality of $P$, we must have $P = P - aP$.
+            \item Since $-a \in P - aP$, it follows that $-a \in P$. Thus $P \cup (-P) = K$, meaning $P$ is a full ordering. \qedhere
+        \end{itemize}
+    \end{proof}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Real Closed Fields}
+    
+    \begin{definition}[Real Closed Field]
+        A field $K$ is called \textbf{real closed} if it is real and has no proper algebraic extension that is real.
+        
+        \begin{itemize}
+            \setlength{\itemsep}{0.2em}
+            \item \textbf{Maximality:} The field $K$ has no proper algebraic extension that is real. If we expand $K$ algebraically to any strictly larger field $L \supsetneq K$, the new field $L$ will \emph{always} break the real property (i.e., $-1$ becomes a sum of squares in $L$ $-1 \in \sum L^2$).\\
+             And $K$ is at the absolute limit of ``realness.''
+        \end{itemize}
+    \end{definition}
+
+    \begin{exampleblock}{Example}
+        The field $\mathbb{R}$ of real numbers is a well-known example of a real closed field.
+    \end{exampleblock}
+
+    \vspace*{\fill}
+    \hfill \textcolor{gray}{\tiny \textit{Ref: M. Knebusch \& C. Scheiderer, Real Algebra. A First Course (2022)}}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Characterization of Real Closed Fields}
+
+    \begin{proposition}[proposition 1.5.2 - Characterization of Real Closed Fields]
+        Let $K$ be a field. The following statements are equivalent:
+        \begin{enumerate}[(i)]
+            \setlength{\itemsep}{0.5em}
+            \item $K$ is real closed;
+            \item there exists an ordering $P$ of $K$ that cannot be extended to any proper algebraic extension of $K$;
+            \item $K^{*2} \cup \{0\} = \{a^2 : a \in K\}$ is an ordering of $K$, and every polynomial (in one variable) of odd degree over $K$ has a zero in $K$.
+        \end{enumerate}
+    \end{proposition}
+    
+    \vspace{0.4em}
+    
+    \begin{alertblock}{Uniqueness of Ordering}
+        Moreover, if these conditions are satisfied, then $K^{*2} \cup \{0\}$ is the \textbf{only} ordering of $K$.
+        \\ \vspace{0.2em}
+        \footnotesize{\textit{Proof:} The final comment is clear by (iii) (every ordering $P$ satisfies $K^{*2} \cup \{0\} \subseteq P$).}
+    \end{alertblock}
+    \vspace*{\fill}
+    \hfill \textcolor{gray}{\tiny \textit{Ref: M. Knebusch \& C. Scheiderer, Real Algebra. A First Course (2022)}}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Background: Extension of Orderings}
+    
+    Before we prove the characterization theorem, we must recall what it means to extend an ordering, which will be crucial for the upcoming proofs.
+
+    \vspace{0.6em}
+
+    \begin{definition}[Definition 1.3.1]
+        Let $L/K$ be a field extension. An ordering $P$ of $K$ \textbf{extends} to an ordering $Q$ of $L$ if 
+        \[ P \subseteq Q \]
+        \vspace{-1em}
+        \begin{center}
+            \footnotesize{(and consequently, $P = K \cap Q$).}
+        \end{center}
+    \end{definition}
+
+    \vspace{0.4em}
+
+    
+
+
+    \vspace*{\fill}
+    \hfill \textcolor{gray}{\tiny \textit{Ref: M. Knebusch \& C. Scheiderer, Real Algebra. A First Course (2022)}}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Background: Extension of Orderings}
+    \framesubtitle{Proposition 1.3.2 - Equivalence}
+    
+    \begin{proposition}[Proposition 1.3.2]
+        Let $L/K$ be a field extension and $P$ an ordering of $K$. The following statements are equivalent:
+        \begin{enumerate}[(i)]
+            \setlength{\itemsep}{0.3em}
+            \item $P$ extends to an ordering $Q$ of $L$;
+            \item $-1$ is not contained in the semiring $T$ generated by $P$ and $\sum L^2$ in $L$ (i.e., the smallest subset $T$ of $L$ such that $P \cup \sum L^2 \subseteq T$, $T + T \subseteq T$ and $TT \subseteq T$);
+            \item every quadratic form $\langle p_1, \dots, p_n \rangle$ with $p_1, \dots, p_n \in P^* := P \setminus \{0\}$ is anisotropic over $L$.
+        \end{enumerate}
+    \end{proposition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Background: Extension of Orderings}
+    \framesubtitle{Proposition 1.3.2 - Proof Sketches}
+    
+    \begin{block}{Proof Highlights}
+        \begin{itemize}
+            \setlength{\itemsep}{0.6em}
+            \item \textbf{(i) $\implies$ (iii):} If $p_1 b_1^2 + \dots + p_n b_n^2 = 0$ with $b_i \in L$, then $b_1 = \dots = b_n = 0$ because $Q$ is an ordering (sum of positive elements is zero only if all are zero).
+            \item \textbf{(iii) $\implies$ (ii):} Elements of $T$ take the form $p_1 b_1^2 + \dots + p_m b_m^2$. If $-1 \in T$, we can manipulate it to find an isotropic form over $L$, contradicting (iii).
+            \item \textbf{(ii) $\implies$ (i):} By assumption, $T$ is a preordering of $L$. By earlier results (Lemma 1.1.9), every preordering is contained in an ordering $Q$ of $L$, which extends $P$.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Background: Extension of Orderings}
+    \framesubtitle{Quadratic Extensions}
+    \vspace{-0.4em}
+    \begin{proposition}[Proposition 1.3.3]
+        Let $P$ be an ordering of $K$, $d \in K$ and $L = K(\sqrt{d})$. Then $P$ extends to $L$ \textbf{if and only if} $d \in P$.
+    \end{proposition}
+    \vspace{-0.4em}
+
+    \begin{block}{Proof Intuition}
+        \begin{itemize}
+            \item \textbf{($\implies$)} If $P$ extends to an Ordering $Q$ of $L$, then $\sqrt{d} \in L$ must be positive in the extended ordering $Q$. Hence, $d = (\sqrt{d})^2 \in Q$, and since $P \subseteq Q$, we have $d \in P$.
+            \vspace{0.4em}
+            \item \textbf{($\impliedby$)} If $d \in P$, assume for contradiction that $P$ does \emph{not} extend.
+            \begin{itemize}
+                \item By Proposition 1.3.2, this forces $-1$ to be a sum of squares over $L$: \\
+                      $-1 = \sum p_i(a_i + b_i\sqrt{d})^2$
+                \item Expanding this and matching the coefficients with respect to the K-basis $\{1, \sqrt{d}\}$ of $L$ gives: 
+                      $-1 = \sum p_i(a_i^2 + d b_i^2)$
+                \item Since $p_i, d,$ and all squares are in $P$, this equation forces $-1 \in P$. This is a contradiction, so $P$ must extend!
+            \end{itemize}
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Background: Extension of Orderings}
+    \framesubtitle{Odd Degree Extensions}
+    \vspace{-0.4em}
+    \begin{proposition}[Proposition 1.3.5]
+        Let $L/K$ be a finite field extension of odd degree. Then \textbf{every} ordering of $K$ extends to $L$.
+    \end{proposition}
+
+    \vspace{-0.6em}
+    
+    \begin{block}{Symbolic Proof Sketch (via Prop 1.3.2)}
+        Assume ther exist an ordering $P$ of $K$ that does \emph{not} extend to $L$.
+        \vspace{-0.2em}
+        \begin{itemize}
+            \setlength{\itemsep}{0.6em}
+            \item \textbf{Prop 1.3.2(ii)} $\implies \exists p_i \in P, x_i \in L$ such that:
+                  \( -1 = \sum p_i x_i^2 \)
+            \item Since $L/K$ is odd, that implies the form is already isotropic over the base field $K$:
+                  \[ \exists y_i \in K \text{ : } y_0^2 + \sum p_i y_i^2 = 0 \]
+            \item $q_j \in P \text{ and } y_j^2 \in P \implies \sum q_j y_j^2 \in P$
+            \item $\implies -1 \in P \quad \textbf{\color{red} (Contradiction!)}$
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Characterization of Real Closed Fields}
+    \framesubtitle{Proof of Proposition 1.5.2: (i) $\implies$ (ii) and (ii) $\implies$ (iii)}
+
+    \begin{proof}[Proof of (i) $\implies$ (ii)]
+        This is clear since a field has an ordering if (and only if) it is real.
+    \end{proof}
+    \vspace{0.4em}
+    
+    \begin{proof}[Proof of (ii) $\implies$ (iii)]
+        \begin{itemize}
+            \item Assume for contradiction that $K^{*2} \cup \{0\} \neq P$.
+            \item Then there would exist some $d \in P$ with $\sqrt{d} \notin K$. 
+            \item By \textbf{Proposition 1.3.3}, the ordering $P$ would extend to the proper algebraic extension $K(\sqrt{d})$. This contradicts assumption (ii)!
+            \item Furthermore, $K$ has no proper extensions of odd degree by \textbf{Proposition 1.3.5}.
+        \end{itemize}
+    \end{proof}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Characterization of Real Closed Fields}
+    \framesubtitle{Proof of Proposition 1.5.2: (iii) $\implies$ (i) [Part 1]}
+
+    \begin{proof}[Proof of (iii) $\implies$ (i)]
+        Let $L \supset K$ be a finite proper field extension. We must show $L$ is not real.
+        \begin{itemize}
+            \item By (iii), $K$ has no odd degree extensions, so $[L : K]$ is a power of 2.
+            \item Since $K$ has an ordering, $\operatorname{char} K = 0$, meaning $L/K$ is separable.
+            \item Let $L_1$ be the Galois closure of $L$ over $K$. Let $G = \operatorname{Gal}(L_1/K)$ and $H = \operatorname{Gal}(L_1/L)$.
+            \item By Galois theory, $\bigcap_{g \in G} H^g = \{1\}$, where $H^g := g^{-1}Hg$.
+            \item By elementary group theory, $|G|$ divides $\prod_{g \in G} [G : H^g]$. 
+            \item Since these indices are powers of 2, $G$ is a 2-group.
+        \end{itemize}
+    \end{proof}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Characterization of Real Closed Fields}
+    \framesubtitle{Proof of Proposition 1.5.2: (iii) $\implies$ (i) [Part 2]}
+
+    \begin{proof}[Proof continued...]
+        \begin{itemize}
+            \item By Sylow's Theorems, there exists a subgroup $\tilde{H}$ of $G$ of index 2 with $H \subset \tilde{H}$. 
+            \item Let $F$ be the fixed field of $\tilde{H}$. Then $K \subset F \subset L$ and $[F : K] = 2$.
+            \item Because the degree is 2, $F = K(\sqrt{a})$ for some $a \in K$.
+            \item Since $K^{*2} \cup \{0\}$ is an ordering (by assumption iii), and $a \notin K^{*2} \cup \{0\}$, it must be negative. Thus $a = -b^2$ for some $b \in K^*$.
+            \item Therefore in $F$: $-1 = a/b^2 = (\sqrt{a}/b)^2$.
+            \item Since $-1$ is a square in $F$, $F$ is not real. We conclude that $L$ (which contains $F$) is not real either. \qedhere
+        \end{itemize}
+    \end{proof}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Fundamental Theorem of Algebra}
+    \framesubtitle{Theorem 1.5.4}
+    
+    \begin{theorem}[Fundamental Theorem of Algebra]
+        If $R$ is a real closed field, then $R(\sqrt{-1})$ is algebraically closed.
+    \end{theorem}
+
+    \vspace{0.4em}
+    \begin{proof}[Proof (Gauss) - Part 1]
+        Let $C := R(i)$ where $i := \sqrt{-1}$. We use Proposition 1.5.2(iii). 
+        \begin{itemize}
+            \item Every finite extension of $R$ (and so also every finite extension of $C$) has 2-power degree. 
+            \item Assume for contradiction that $C$ is not algebraically closed. 
+            \item As in the proof of Prop 1.5.2, $C$ has an extension $F$ with $[F : C] = 2$.
+            \item Thus, there exist $a, b \in R$ such that $\alpha := a + bi$ is not a square in $C$. Hence, $b \neq 0$.
+        \end{itemize}
+    \end{proof}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Fundamental Theorem of Algebra}
+    \framesubtitle{Proof (Gauss) - Part 2}
+
+    \begin{proof}[Proof continued...]
+        \begin{itemize}
+            \item Since $R^2$ is an ordering of $R$, there exists $c \in R$ with $a^2 + b^2 = c^2$ and $c > 0$.
+            \item We can find $x, y \in R$ with $x > 0$, $\operatorname{sign} y = \operatorname{sign} b$, and:
+            \[ x^2 = \frac{c + a}{2}, \quad y^2 = \frac{c - a}{2} \]
+            \item Now evaluate $(x + iy)^2 = (x^2 - y^2) + 2xyi$.
+            \item Notice $x^2 - y^2 = a$, and $(2xy)^2 = 4x^2y^2 = c^2 - a^2 = b^2$. 
+            \item Since $\operatorname{sign}(xy) = \operatorname{sign} b$, we have $2xy = b$.
+            \item It follows that $(x + iy)^2 = a + bi = \alpha$, which contradicts that $\alpha$ is not a square in $C$. \qedhere
+        \end{itemize}
+    \end{proof}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Relative Algebraic Closure}
+    
+    \begin{corollary}[Corollary 1.5.5]
+        Let $R$ be a real closed field and let $K \subseteq R$ be a subfield. Then $K$ is real closed \textbf{if and only if} $K$ is (relatively) algebraically closed in $R$.
+    \end{corollary}
+
+    \vspace{0.4em}
+    \begin{proof}
+        Assume $K$ is algebraically closed in $R$. Let $i = \sqrt{-1}$. Then $K(i)$ is algebraically closed in $R(i)$.
+        \begin{itemize}
+            \item If $\alpha = a + bi \in R(i)$ is algebraic over $K(i)$ (where $a, b \in R$), it is algebraic over $K$. 
+            \item The conjugate $\overline{\alpha} = a - bi$ is also algebraic.
+            \item Thus $a = (\alpha + \overline{\alpha})/2$ and $b = i(\overline{\alpha} - \alpha)/2$ are algebraic over $K$.
+            \item Since $K$ is algebraically closed in $R$, $a, b \in K$, hence $\alpha \in K(i)$.
+            \item By Theorem 1.5.4, $K(i)$ is algebraically closed, meaning $K$ is real closed.
+        \end{itemize}
+        The converse direction is trivial by definition. \qedhere
+    \end{proof}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Rigidity of Real Closed Fields}
+    
+    Another characteristic of real closed fields is their relative rigidity:
+    
+    \vspace{0.4em}
+    \begin{proposition}[Proposition 1.5.6]
+        Let $R$ be a real closed field.
+        \begin{enumerate}[(a)]
+            \item Every (ring) endomorphism $\varphi$ of $R$ is \textbf{order preserving}, i.e., $a \leq b \implies \varphi(a) \leq \varphi(b)$ for all $a, b \in R$.
+            \item If $K \subseteq R$ is a subfield and $R/K$ is algebraic, then the identity is the \textbf{only} $K$-automorphism of $R$.
+        \end{enumerate}
+    \end{proposition}
+
+    \vspace{0.6em}
+    \begin{alertblock}{Notation Convention}
+        If $R$ is real closed, we will henceforth denote the uniquely determined ordering of $R$ by $\leq$ without further comment.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Rigidity of Real Closed Fields}
+    \framesubtitle{Proof of Proposition 1.5.6}
+
+    \vspace{-0.4em}
+    \begin{proof}[Proof of (a)]
+        This follows immediately from the fact that the unique ordering consists exactly of the squares: $R^2 = \{a \in R \mid a \geq 0\}$. \\
+        \vspace{0.2em}
+        \footnotesize{\textit{(Note: Endomorphisms preserve squares, so if $b-a = c^2 \geq 0$, then $\varphi(b) - \varphi(a) = \varphi(c^2) = (\varphi(c))^2 \geq 0$, preserving the order.)}}
+    \end{proof}
+
+    \vspace{-0.4em}
+
+    \begin{proof}[Proof of (b)]
+        Let $\varphi \in \operatorname{Aut}_K(R)$ and $a \in R$. 
+        \begin{itemize}
+            \item Since $R/K$ is algebraic, the set of iterates $\{\varphi^n(a) \mid n \in \mathbb{N}\}$ must be a finite set.
+            \item Assume for contradiction that $\varphi(a) \neq a$. Without loss of generality, let $\varphi(a) > a$.
+            \item Since $\varphi$ is order preserving by (a), applying it repeatedly yields:
+            \[ a < \varphi(a) < \varphi^2(a) < \dots \]
+            \item This creates an infinite strictly increasing sequence, contradicting that the set of iterates is finite. Thus, $\varphi(a) = a$. \qedhere
+        \end{itemize}
+    \end{proof}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Galois Theoretic Characterization of Real Closed Fields}
+    \framesubtitle{Artin-Schreier Theorem (1927)}
+
+    \vspace{-0.4em}
+    \begin{theorem}[1.6.1 - E. Artin \& O. Schreier]
+        Let $K$ be a field with algebraic closure $\overline{K}$.\\
+        If $K \neq \overline{K}$ and $[\overline{K} : K] < \infty$, then $K$ is real closed and $\overline{K} = K(\sqrt{-1})$.
+    \end{theorem}
+    \vspace{-0.4em}
+    \begin{block}{Proof Strategy (J. Leicht)}
+        Let $n = [\overline{K}:K]$. The proof is broken down into 6 structural steps:
+        \begin{enumerate}
+            \setlength{\itemsep}{0.3em}
+            \item Show $K$ is perfect (forces $\overline{K}/K$ to be finite Galois).
+            \item Analyze a maximal intermediate field $L$ with prime index $q = [\overline{K}:L]$ and show $\text{char } K \neq q$.
+            \item Prove $q = 2$.
+            \item Deduce $\overline{K} = L(\sqrt{-1})$.
+            \item Show $L = K$, forcing $\overline{K} = K(\sqrt{-1})$.
+            \item Conclude $K$ is real (and therefore real closed).
+        \end{enumerate}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Galois Theoretic Characterization of Real Closed Fields}
+    \framesubtitle{Proof of Theorem 1.6.1: Steps 1 \& 2}
+
+    \begin{block}{(1) $K$ is perfect}
+        \begin{itemize}
+            \item Assume not $\implies \text{char } K = p > 0$, $\exists a \in K$ with $\alpha := a^{1/p} \notin K$.
+            \item Iterative norm arguments $N_{K(\alpha)/K}$ yield infinite field extensions of degrees $p, p^2, p^3, \dots$
+            \item \textbf{\color{red} Contradiction:} $[\overline{K} : K] < \infty$.
+            \item $\therefore K$ is perfect $\implies \overline{K}/K$ is a finite Galois extension.
+        \end{itemize}
+    \end{block}
+
+    \begin{block}{(2) $\text{char } K \neq q$}
+        Let $L$ be a maximal intermediate field, and $q := [\overline{K}:L]$ (which is prime).
+        \begin{itemize}
+            \item Assume $\text{char } K = p = q$.
+            \item Artin-Schreier theory on map $\psi(b) := b^p - b$ and trace map $\text{tr}_{\overline{K}/L}$ creates a commuting diagram.
+            \item Surjectivity of $\psi$ and $\text{tr}$ forces $\psi|_L : L \to L$ to be surjective.
+            \item \textbf{\color{red} Contradiction:} $\psi(L) \neq L$ by Artin-Schreier theory.
+            \item $\therefore \text{char } K \neq q$.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Galois Theoretic Characterization of Real Closed Fields}
+    \framesubtitle{Proof of Theorem 1.6.1: Steps 3 \& 4}
+
+    \begin{block}{(3) $q = 2$ (and $\text{char } K \neq 2$)}
+        \begin{itemize}
+            \item $\text{char } K \neq q \implies \overline{K} = L(a^{1/q})$ for some $a \in L$.
+            \item Let $\beta := a^{1/q^2}$. The norm is $N_{\overline{K}/L}(\beta)^q = (-1)^{q-1}a$.
+            \item Since $a$ is \emph{not} a $q$-th power in $L$, $q$ \textbf{must be even}.
+            \item Since $q$ is prime, we conclude $q = 2$.
+        \end{itemize}
+    \end{block}
+
+    \begin{block}{(4) $\overline{K} = L(\sqrt{-1})$}
+        \begin{itemize}
+            \item Let $i = \sqrt{-1} \in \overline{K}$.
+            \item From (3), $\exists a \in L, \beta \in \overline{K}$ with $\beta^4 = a$ and $\overline{K} = L(\beta^2)$.
+            \item Squaring the norm: $N_{\overline{K}/L}(\beta)^2 = -\beta^4 \implies \beta^2 / N_{\overline{K}/L}(\beta) = \sqrt{-1}$.
+            \item $\therefore \sqrt{-1} \notin L$ and $\overline{K} = L(\sqrt{-1})$.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Galois Theoretic Characterization of Real Closed Fields}
+    \framesubtitle{Proof of Theorem 1.6.1: Steps 5 \& 6}
+
+    \begin{block}{(5) $L = K$, thus $\overline{K} = K(i)$}
+        \begin{itemize}
+            \item If $K \neq L$, then $K(i) \neq \overline{K}$.
+            \item Applying steps (1)--(4) to $K(i)$ instead of $K$ leads to a contradiction (it would force another degree-2 extension).
+            \item $\therefore L = K$, which immediately means $\overline{K} = K(i)$.
+        \end{itemize}
+    \end{block}
+
+    \begin{block}{(6) $K$ is real (and thus real closed)}
+        \begin{itemize}
+            \item Since $i \notin K$, we just need to show the sum of two squares in $K$ is a square (Prop 1.5.2).
+            \item Let $a, b \in K^*$. Since $\overline{K}$ is algebraically closed, $\exists c, d \in K$ with $a+bi = (c+di)^2$.
+            \item Taking conjugates: $a-bi = (c-di)^2$.
+            \item Multiplying them gives: $a^2+b^2 = (c^2+d^2)^2$.
+            \item $\therefore K$ is a real field. Since $\overline{K} = K(i)$, it has no proper real extensions, so $K$ is Real Closed. \qed
+        \end{itemize}
+    \end{block}
 \end{frame}
 
 \end{document}
